@@ -1,5 +1,5 @@
 /**
- *  StorDJE - Storage layer add-on utility for the Dojo Toolkit event system
+ *  StorDJE - Storage layer add-on module for the Dojo Toolkit event system
  *
  *  Copyright (c) 2010 Marat Nepomnyashy    maratbn@gmail
  *  All rights reserved.
@@ -8,7 +8,7 @@
  *
  *  Description:    Background:
  *
- *                  The Dojo Toolkit, upon which this utility is based,
+ *                  The Dojo Toolkit, for which this module is intended,
  *                  features a versatile topic-based event publishing and
  *                  subscription framework, that allows widgets throughout the
  *                  application to receive notifications of various events and
@@ -27,13 +27,13 @@
  *
  *                  Overview and purpose:
  *
- *                  This is a storage layer add-on utility for the Dojo
- *                  Toolkit event system.  It loads on top of Dojo, and
- *                  provides additional API for retrieval of previously-
- *                  published topic-based event data, making it possible for
- *                  application components to access event data that could not
- *                  be received, or was not needed, at the time it was
- *                  originally published.
+ *                  This is a storage layer add-on module for the Dojo
+ *                  Toolkit event system.  It can be 'require'd via the Dojo
+ *                  module loading system, and used for retrieval of previously
+ *                  -published topic-based event data, making it possible for
+ *                  application components to access event data that either
+ *                  could not be received, or was not needed, at the time it
+ *                  was originally received.
  *
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -59,12 +59,10 @@
  *  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-if (!dojo.stordje) {
-    // Save a reference to the original 'dojo.publish(...)' function:
-    var funOriginalDojoPublish = dojo.publish;
+dojo.provide('stordje');
 
-    dojo.stordje = {
-            publish: function(/*String*/ topic, /*Array*/ args) {
+(function() {
+    stordje.publish = function(/*String*/ topic, /*Array*/ args) {
                     //      summary:
                     //              Publishes a new event via the Dojo event
                     //              system.  Caches the data associated with
@@ -84,14 +82,14 @@ if (!dojo.stordje) {
                     //              Array of data passed to the parameters of
                     //              the subscribing event listener functions.
                     //
-                    if (!dojo.stordje._topics) dojo.stordje._topics = {};
-                    dojo.stordje._topics[topic] = args;
+                    if (!stordje._topics) stordje._topics = {};
+                    stordje._topics[topic] = args;
 
                     // Call the original 'dojo.publish(...)' function:
-                    funOriginalDojoPublish(topic, args);
-                },
+                    dojo.publish.apply(this, arguments);
+                };
 
-            recall: function(/*String*/ topic) {
+    stordje.recall = function(/*String*/ topic) {
                     //      summary:
                     //              Recalls the data array associated with the
                     //              latest past event already published under
@@ -107,11 +105,10 @@ if (!dojo.stordje) {
                     //      |       var arrayOf4 = dojo.stordje.recall(
                     //      |                                   'test_topic')
                     //
-                    return dojo.stordje._topics &&
-                            dojo.stordje._topics[topic] || null;
-                },
+                    return stordje._topics && stordje._topics[topic] || null;
+                };
 
-            recallFirst: function(/*String*/ topic) {
+    stordje.recallFirst = function(/*String*/ topic) {
                     //      summary:
                     //              Returns just the first element of the data
                     //              array associated with the latest past
@@ -127,19 +124,8 @@ if (!dojo.stordje) {
                     //      |       var digit1 = dojo.stordje.recallFirst(
                     //      |                                   'test_topic')
                     //
-                    var args = dojo.stordje.recall(topic);
+                    var args = stordje.recall(topic);
                     return args && args.length > 0 && args[0] || null;
-                }
-        }
-
-    // Make the StorDJE utility 'dojo.stordje.publish(...)' be the new
-    // 'dojo.publish(...)':
-    dojo.publish = dojo.stordje.publish;
-
-    // For convenience, make the 'recall(...)' and 'recallFirst(...)'
-    // functions part of the 'dojo' namespace as well, but first check that
-    // there isn't anything else there already with the same name:
-    if (!dojo.recall) dojo.recall = dojo.stordje.recall;
-    if (!dojo.recallFirst) dojo.recallFirst = dojo.stordje.recallFirst;
-}
+                };
+})()
 
