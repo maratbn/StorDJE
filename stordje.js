@@ -33,7 +33,7 @@
  *                  previously-published topic-based event data, making it
  *                  possible for application components to access event data
  *                  that either could not be received, or was not needed, at
- *                  the time it was originally received.
+ *                  the time it was originally published.
  *
  *
  *  Redistribution and use in source and binary forms, with or without
