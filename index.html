@@ -12,6 +12,10 @@
             width:                          90%;
             margin:                         auto;
         }
+        
+        .stordje_support .input_width {
+            width:                          200px;
+        }
     </style>
   </head>
   <body class='stordje_support'>
@@ -55,6 +59,56 @@
           </li>
         </ul>
       </li>
+      <li>
+        <h3>Test StorDJE in your browser:</h3>
+        <ol>
+          <li>
+            Type an arbitrary event name and some text below, and click the
+            'Store' button:
+            <div dojoType='EventDataWidget'></div>
+          </li>
+        </ol>
+      </li>
     </ul>
+
+    <script
+        type='text/javascript'
+        src='/dojo-release-1.5.0/dojo/dojo.js'
+        djConfig="parseOnLoad: true, modulePaths:{'stordje':'stordje.js'}">
+    </script>
+    <script type='text/javascript'>
+        //<!--
+        dojo.require('dijit._Templated');
+        dojo.require('dijit._Widget');
+
+        dojo.declare('EventDataWidget', [dijit._Widget, dijit._Templated], {
+                templateString: [
+                        "<table>",
+                          "<tr>",
+                            "<td valign='top'>",
+                              "Event name:",
+                            "</td>",
+                            "<td valign='top'>",
+                              "<input type='text' value='my-event'",
+                                " class='input_width'></input>",
+                            "</td>",
+                            "<td rowspan='2' valign='top'>",
+                              "<button>Store</button>",
+                            "</td>",
+                          "</tr>",
+                          "<tr>",
+                            "<td valign='top'>",
+                              "Event data:",
+                            "</td>",
+                            "<td valign='top'>",
+                              "<textarea class='input_width'>",
+                                "some text data to store for this event...",
+                              "</textarea>",
+                            "</td>",
+                          "</tr>",
+                        "</table>"].join("")
+            });
+        //-->
+    </script>
   </body>
 </html>
