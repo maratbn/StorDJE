@@ -106,8 +106,8 @@
                               "Event data:",
                             "</td>",
                             "<td valign='top'>",
-                              "<textarea class='input_width'>",
-                                "some text data to store for this event...",
+                              "<textarea class='input_width'",
+                                  " dojoAttachPoint='_elEventData'>",
                               "</textarea>",
                             "</td>",
                           "</tr>",
@@ -115,6 +115,14 @@
             });
 
         dojo.declare('StoreEventDataWidget', EventDataWidget, {
+                postCreate: function() {
+                    this.inherited(arguments);
+
+                    dojo.attr(
+                        this._elEventData,
+                        'value',
+                        "some text data to store for this event...");
+                }
             });
 
         dojo.declare('RecallEventDataWidget', EventDataWidget, {
