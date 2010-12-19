@@ -65,12 +65,12 @@
           <li>
             Enter an arbitrary event name and some text below, and click the
             'Store' button:
-            <div dojoType='EventDataWidget'></div>
+            <div dojoType='StoreEventDataWidget'></div>
           </li>
           <li>
             Enter the same event name, and click the 'Recall' button to
             display the text data entered above:
-            <div dojoType='EventDataWidget'></div>
+            <div dojoType='RecallEventDataWidget'></div>
           </li>
         </ol>
       </li>
@@ -112,6 +112,12 @@
                             "</td>",
                           "</tr>",
                         "</table>"].join("")
+            });
+
+        dojo.declare('StoreEventDataWidget', EventDataWidget, {
+            });
+
+        dojo.declare('RecallEventDataWidget', EventDataWidget, {
             });
         //-->
     </script>
