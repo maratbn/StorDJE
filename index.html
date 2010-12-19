@@ -78,6 +78,10 @@
 
     <script
         type='text/javascript'
+        src='/jquery/jquery-1.4.4.min.js'>
+    </script>
+    <script
+        type='text/javascript'
         src='/dojo-release-1.5.0/dojo/dojo.js'
         djConfig="parseOnLoad: true, modulePaths:{'stordje':'stordje.js'}">
     </script>
@@ -98,7 +102,8 @@
                                   " class='input_width'></input>",
                             "</td>",
                             "<td rowspan='2' valign='top'>",
-                              "<button>Store</button>",
+                              "<button dojoAttachPoint='_elButton'>",
+                              "</button>",
                             "</td>",
                           "</tr>",
                           "<tr>",
@@ -118,6 +123,8 @@
                 postCreate: function() {
                     this.inherited(arguments);
 
+                    $(this._elButton).text("Store");
+
                     dojo.attr(
                         this._elEventData,
                         'value',
@@ -126,6 +133,11 @@
             });
 
         dojo.declare('RecallEventDataWidget', EventDataWidget, {
+                postCreate: function() {
+                    this.inherited(arguments);
+
+                    $(this._elButton).text("Recall");
+                }
             });
         //-->
     </script>
