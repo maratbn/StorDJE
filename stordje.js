@@ -19,21 +19,21 @@
  *                  event data, preventing the event system from being used to
  *                  store data for the application model.
  *
- *                  Such a capability is important for UI components that are
+ *                  Such a capability is useful for UI components that are
  *                  created by their parent components upon notification of
  *                  (and obviously after) a particular event, but that still
- *                  periodically require the latest data from that particular
- *                  event topic throughout their lifecycle.
+ *                  periodically require the latest data on that or other
+ *                  event topic(s) throughout their lifecycle.
  *
  *                  Overview and purpose:
  *
  *                  This is a storage layer add-on module for the Dojo
  *                  Toolkit event system.  It can be 'require'd via the Dojo
- *                  module loading system, and used for retrieval of previously
- *                  -published topic-based event data, making it possible for
- *                  application components to access event data that either
- *                  could not be received, or was not needed, at the time it
- *                  was originally received.
+ *                  module loading system, and be used for the retrieval of
+ *                  previously-published topic-based event data, making it
+ *                  possible for application components to access event data
+ *                  that either could not be received, or was not needed, at
+ *                  the time it was originally published.
  *
  *
  *  Redistribution and use in source and binary forms, with or without

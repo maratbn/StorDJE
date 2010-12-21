@@ -3,7 +3,7 @@
 <html>
   <head>
     <title>
-      StorDJE - Storage layer add-on utility for the Dojo Toolkit event system
+      StorDJE - Storage layer add-on module for the Dojo Toolkit event system
     </title>
     <style type='text/css'>
         .stordje_support {
@@ -12,12 +12,35 @@
             width:                          90%;
             margin:                         auto;
         }
+
+        .stordje_support .quick_links {
+            float:                          right;
+            margin-left:                    15px;
+        }
+
+        .stordje_support .input--width {
+            width:                          200px;
+        }
     </style>
   </head>
   <body class='stordje_support'>
     <h1>
-      StorDJE - Storage layer add-on utility for the Dojo Toolkit event system
+      StorDJE - Storage layer add-on module for the Dojo Toolkit event system
     </h1>
+    <div class='quick_links'>
+      <p>
+        <h3>
+          <a href='https://github.com/maratbn/stordje/'>
+            Browse source
+          </a>
+        </h3>
+        <h3>
+          <a href='https://github.com/maratbn/StorDJE/raw/master/stordje.js'>
+            Download source
+          </a>
+        </h3>
+      </p>
+    </div>
     <ul>
       <li>
         <h3>Description</h3>
@@ -25,35 +48,156 @@
           <li>
             <h4>Background:</h4>
             <p>
-            The Dojo Toolkit, upon which this utility is based, features a versatile
-            topic-based event publishing and subscription framework, that allows
-            widgets throughout the application to receive notifications of various
-            events and associated data.
+    The Dojo Toolkit, for which this module is intended, features a versatile
+    topic-based event publishing and subscription framework, that allows
+    widgets throughout the application to receive notifications of various
+    events and associated data.
             </p>
             <p>
-              However, as of version 1.5.0, the Dojo Toolkit lacks a utility to also
-              allow retrieval of previously published event data, preventing the event
-              system from being used to store data for the application model.
+    However, as of version 1.5.0, the Dojo Toolkit lacks a utility to also
+    allow retrieval of previously published event data, preventing the event
+    system from being used to store data for the application model.
             </p>
             <p>
-              Such a capability is important for UI components that are created by their
-              parent components upon notification of (and obviously after) a particular
-              event, but that still periodically require the latest data from that
-              particular event topic throughout their lifecycle.
+    Such a capability is useful for UI components that are created by their
+    parent components upon notification of (and obviously after) a particular
+    event, but that still periodically require the latest data on that or
+    other event topic(s) throughout their lifecycle.
             </p>
           </li>
           <li>
             <h4>Overview and purpose:</h4>
             <p>
-              This is a storage layer add-on utility for the Dojo Toolkit event system.
-              It loads on top of Dojo, and provides additional API for retrieval of
-              previously-published topic-based event data, making it possible for
-              application components to access event data that could not be received, or
-              was not needed, at the time it was originally published.
+    This is a storage layer add-on module for the Dojo Toolkit event system.
+    It can be 'require'd via the Dojo module loading system, and be used for
+    the retrieval of previously-published topic-based event data, making it
+    possible for application components to access event data that either could
+    not be received, or was not needed, at the time it was originally
+    published.
             </p>
           </li>
         </ul>
       </li>
+      <li>
+        <h3>Test StorDJE in your browser:</h3>
+        <ol>
+          <li>
+            Enter an arbitrary event name and some text data below, and click
+            the 'Store' button:
+            <div dojoType='StoreEventDataWidget'></div>
+          </li>
+          <li>
+            Enter the same event name below as entered above, and click the
+            'Recall' button to load and display the text data just entered:
+            <div dojoType='RecallEventDataWidget'></div>
+          </li>
+        </ol>
+      </li>
     </ul>
+    <div>
+      Copyright (c) 2010 Marat Nepomnyashy
+      <br>
+      The StorDJE utility source code is
+      <a href='http://github.com/maratbn/stordje/raw/master/LICENSE'>
+        licensed
+      </a>
+      under the
+      <a href='http://www.opensource.org/licenses/bsd-license.php'>
+        BSD license
+      </a>.
+    </div>
+    <script
+        type='text/javascript'
+        src='/jquery/jquery-1.4.4.min.js'>
+    </script>
+    <script
+        type='text/javascript'
+        src='/dojo-release-1.5.0/dojo/dojo.js'
+        djConfig="parseOnLoad: true, modulePaths:{'stordje':'/stordje/stordje'}">
+    </script>
+    <script type='text/javascript'>
+        //<!--
+        dojo.require('dijit._Templated');
+        dojo.require('dijit._Widget');
+
+        dojo.declare('EventDataWidget', [dijit._Widget, dijit._Templated], {
+                templateString: [
+                        "<table>",
+                          "<tr>",
+                            "<td valign='top'>",
+                              "Event name:",
+                            "</td>",
+                            "<td valign='top'>",
+                              "<input type='text' value='my-event'",
+                                  " class='input--width'",
+                                  " dojoAttachPoint='_elEventName'",
+                                "></input>",
+                            "</td>",
+                            "<td rowspan='2' valign='top'>",
+                              "<button dojoAttachPoint='_elButton'",
+                                  " dojoAttachEvent='onclick:_onButtonClicked'>",
+                              "</button>",
+                            "</td>",
+                          "</tr>",
+                          "<tr>",
+                            "<td valign='top'>",
+                              "Event data:",
+                            "</td>",
+                            "<td valign='top'>",
+                              "<textarea class='input--width'",
+                                  " dojoAttachPoint='_elEventData'>",
+                              "</textarea>",
+                            "</td>",
+                          "</tr>",
+                        "</table>"].join(""),
+
+                _onButtonClicked: function() {
+                }
+            });
+
+        dojo.declare('StoreEventDataWidget', EventDataWidget, {
+                postCreate: function() {
+                    this.inherited(arguments);
+
+                    $(this._elButton).text("Store");
+
+                    dojo.attr(
+                        this._elEventData,
+                        'value',
+                        "some text data to store for this event...");
+                },
+
+                _onButtonClicked: function() {
+                    this.inherited(arguments);
+
+                    var strEventName = dojo.attr(this._elEventName, 'value');
+                    var strEventData = dojo.attr(this._elEventData, 'value');
+
+                    dojo.require('stordje');
+                    stordje.publish(strEventName, [strEventData]);
+                }
+            });
+
+        dojo.declare('RecallEventDataWidget', EventDataWidget, {
+                postCreate: function() {
+                    this.inherited(arguments);
+
+                    $(this._elButton).text("Recall");
+                },
+
+                _onButtonClicked: function() {
+                    this.inherited(arguments);
+
+                    var strEventName = dojo.attr(this._elEventName, 'value');
+
+                    dojo.require('stordje');
+                    var strEventData = stordje.recallFirst(strEventName);
+
+                    dojo.attr(this._elEventData, 'value', strEventData
+                                                                    || "");
+                }
+            });
+        //-->
+    </script>
   </body>
 </html>
