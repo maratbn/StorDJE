@@ -83,7 +83,7 @@
     <script
         type='text/javascript'
         src='/dojo-release-1.5.0/dojo/dojo.js'
-        djConfig="parseOnLoad: true, modulePaths:{'stordje':'stordje.js'}">
+        djConfig="parseOnLoad: true, modulePaths:{'stordje':'/stordje/stordje'}">
     </script>
     <script type='text/javascript'>
         //<!--
@@ -99,10 +99,13 @@
                             "</td>",
                             "<td valign='top'>",
                               "<input type='text' value='my-event'",
-                                  " class='input_width'></input>",
+                                  " class='input_width'",
+                                  " dojoAttachPoint='_elEventName'",
+                                "></input>",
                             "</td>",
                             "<td rowspan='2' valign='top'>",
-                              "<button dojoAttachPoint='_elButton'>",
+                              "<button dojoAttachPoint='_elButton'",
+                                  " dojoAttachEvent='onclick:_onButtonClicked'>",
                               "</button>",
                             "</td>",
                           "</tr>",
@@ -116,7 +119,10 @@
                               "</textarea>",
                             "</td>",
                           "</tr>",
-                        "</table>"].join("")
+                        "</table>"].join(""),
+
+                _onButtonClicked: function() {
+                }
             });
 
         dojo.declare('StoreEventDataWidget', EventDataWidget, {
@@ -129,6 +135,16 @@
                         this._elEventData,
                         'value',
                         "some text data to store for this event...");
+                },
+
+                _onButtonClicked: function() {
+                    this.inherited(arguments);
+
+                    var strEventName = dojo.attr(this._elEventName, 'value');
+                    var strEventData = dojo.attr(this._elEventData, 'value');
+
+                    dojo.require('stordje');
+                    stordje.publish(strEventName, [strEventData]);
                 }
             });
 
@@ -137,6 +153,18 @@
                     this.inherited(arguments);
 
                     $(this._elButton).text("Recall");
+                },
+
+                _onButtonClicked: function() {
+                    this.inherited(arguments);
+
+                    var strEventName = dojo.attr(this._elEventName, 'value');
+
+                    dojo.require('stordje');
+                    var strEventData = stordje.recallFirst(strEventName);
+
+                    dojo.attr(this._elEventData, 'value', strEventData
+                                                                    || "");
                 }
             });
         //-->
