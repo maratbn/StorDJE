@@ -5,6 +5,15 @@
     <title>
       StorDJE - Storage layer add-on module for the Dojo Toolkit event system
     </title>
+    <link
+        rel='stylesheet'
+        href='/jquery/jquery-ui-1.8.7.custom/development-bundle/themes/ui-lightness/jquery.ui.core.css'>
+    <link
+        rel='stylesheet'
+        href='/jquery/jquery-ui-1.8.7.custom/development-bundle/themes/ui-lightness/jquery.ui.button.css'>
+    <link
+        rel='stylesheet'
+        href='/jquery/jquery-ui-1.8.7.custom/development-bundle/themes/ui-lightness/jquery.ui.theme.css'>
     <style type='text/css'>
         .stordje_support {
             font-family:                    sans-serif;
@@ -112,6 +121,19 @@
     </script>
     <script
         type='text/javascript'
+        src='/jquery/jquery-ui-1.8.7.custom/development-bundle/ui/jquery.ui.core.js'>
+    </script>
+    <script
+        type='text/javascript'
+        src='/jquery/jquery-ui-1.8.7.custom/development-bundle/ui/jquery.ui.widget.js'>
+    </script>
+    <script
+        type='text/javascript'
+        src='/jquery/jquery-ui-1.8.7.custom/development-bundle/ui/jquery.ui.button.js'>
+    </script>
+
+    <script
+        type='text/javascript'
         src='/dojo-release-1.5.0/dojo/dojo.js'
         djConfig="parseOnLoad: true, modulePaths:{'stordje':'/stordje/stordje'}">
     </script>
@@ -121,6 +143,8 @@
         dojo.require('dijit._Widget');
 
         dojo.declare('EventDataWidget', [dijit._Widget, dijit._Templated], {
+                button_caption: "",
+
                 templateString: [
                         "<table>",
                           "<tr>",
@@ -136,6 +160,7 @@
                             "<td rowspan='2' valign='top'>",
                               "<button dojoAttachPoint='_elButton'",
                                   " dojoAttachEvent='onclick:_onButtonClicked'>",
+                                "${button_caption}",
                               "</button>",
                             "</td>",
                           "</tr>",
@@ -151,15 +176,27 @@
                           "</tr>",
                         "</table>"].join(""),
 
+                postCreate: function() {
+                    this.inherited(arguments);
+
+                    $(this._elButton).button();
+                },
+
+                destroy: function() {
+                    $(this._elButton).button('destroy');
+
+                    this.inherited(arguments);
+                },
+
                 _onButtonClicked: function() {
                 }
             });
 
         dojo.declare('StoreEventDataWidget', EventDataWidget, {
+                button_caption: "Store",
+
                 postCreate: function() {
                     this.inherited(arguments);
-
-                    $(this._elButton).text("Store");
 
                     dojo.attr(
                         this._elEventData,
@@ -179,11 +216,7 @@
             });
 
         dojo.declare('RecallEventDataWidget', EventDataWidget, {
-                postCreate: function() {
-                    this.inherited(arguments);
-
-                    $(this._elButton).text("Recall");
-                },
+                button_caption: "Recall",
 
                 _onButtonClicked: function() {
                     this.inherited(arguments);
