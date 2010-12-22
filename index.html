@@ -144,6 +144,7 @@
 
         dojo.declare('EventDataWidget', [dijit._Widget, dijit._Templated], {
                 button_caption: "",
+                button_icon: "",
 
                 templateString: [
                         "<table>",
@@ -179,7 +180,11 @@
                 postCreate: function() {
                     this.inherited(arguments);
 
-                    $(this._elButton).button();
+                    $(this._elButton).button({
+                            icons: {
+                                primary: this.button_icon
+                            }
+                        });
                 },
 
                 destroy: function() {
@@ -194,6 +199,7 @@
 
         dojo.declare('StoreEventDataWidget', EventDataWidget, {
                 button_caption: "Store",
+                button_icon: 'ui-icon-arrowthick-1-se',
 
                 postCreate: function() {
                     this.inherited(arguments);
@@ -217,6 +223,7 @@
 
         dojo.declare('RecallEventDataWidget', EventDataWidget, {
                 button_caption: "Recall",
+                button_icon: 'ui-icon-arrowthick-1-ne',
 
                 _onButtonClicked: function() {
                     this.inherited(arguments);
