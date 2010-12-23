@@ -106,8 +106,9 @@
         <h3>To Use the StorDJE module in your project:</h3>
         <ol>
           <li>
-            Specify the module path to the StorDJE JavaScript file without
-            the '.js' extension in 'djConfig':
+            Include the path to the 'stordje' module in the 'djConfig'
+            'modulePaths' parameter by specifying the HTTP/S path to the
+            StorDJE JavaScript file without the '.js'  extension:
             <pre>
 &lt;script
   type='text/javascript'
@@ -117,25 +118,35 @@
             </pre>
           </li>
           <li>
-            Instead of coding:
+            Instead of calling the 'publish(...)' method of the 'dojo' module
+            like this:
             <pre>
-dojo.publish("my-event", ["my event data"]);
+dojo.publish('my-event', ["my event data"]);
             </pre>
-            Code:
+            Change the module from 'dojo' to 'stordje' like this:
             <pre>
 dojo.require('stordje');
-stordje.publish("my-event", ["my event data"]);
+stordje.publish('my-event', ["my event data"]);
             </pre>
+            The method arguments remain exactly the same.  The method
+            'stordje.publish(...)' still calls 'dojo.publish(...)' internally
+            after saving the event data to a hash map.
           </li>
           <li>
-            To recall the data:
+            To recall the event data, call either the 'recall(...)' or
+            'recallFirst(...)' method of the stordje module:
             <pre>
 dojo.require('stordje');
-var arrData = stordje.recall("my-event");       // Returns an array containing
-                                                // the stored string.
+var arrData = stordje.recall('my-event');       // Returns the stored string
+                                                // wrapped inside an array.
 
-var strData = stordje.recallFirst("my-event");  // Returns the stored string.
+var strData = stordje.recallFirst('my-event');  // Returns just the stored
+                                                // string.
             </pre>
+            These methods simply retrieve the event data from the same hash
+            map to which it was previously saved by 'stordje.publish(...)'.
+            The 'recallFirst(...)' method was added for convenience to unwrap
+            the data from the array in which it was originally published.
           </li>
         </ol>
       </li>
