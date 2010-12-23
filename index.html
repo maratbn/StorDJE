@@ -107,6 +107,43 @@
           </li>
         </ol>
       </li>
+      <li>
+        <h3>To Use the StorDJE module in your project:</h3>
+        <ol>
+          <li>
+            Specify the module path to the StorDJE JavaScript file without
+            the '.js' extension in 'djConfig':
+            <pre>
+&lt;script
+  type='text/javascript'
+  src='/dojo-release-1.5.0/dojo/dojo.js'
+  djConfig="parseOnLoad: true, modulePaths:{'stordje':'/stordje/stordje'}"&gt;
+&lt;/script&gt;
+            </pre>
+          </li>
+          <li>
+            Instead of coding:
+            <pre>
+dojo.publish("my-event", ["my event data"]);
+            </pre>
+            Code:
+            <pre>
+dojo.require('stordje');
+stordje.publish("my-event", ["my event data"]);
+            </pre>
+          </li>
+          <li>
+            To recall the data:
+            <pre>
+dojo.require('stordje');
+var arrData = stordje.recall("my-event");       // Returns an array containing
+                                                // the stored string.
+
+var strData = stordje.recallFirst("my-event");  // Returns the stored string.
+            </pre>
+          </li>
+        </ol>
+      </li>
     </ul>
     <div>
       Copyright (c) 2010 Marat Nepomnyashy
