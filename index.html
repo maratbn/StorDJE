@@ -109,7 +109,7 @@
             Include the path to the 'stordje' module in the 'djConfig'
             'modulePaths' parameter by specifying the HTTP/S path to the
             StorDJE JavaScript file without the '.js'  extension:
-            <pre>
+            <pre dojoType='dcodeview.DCodeView'>
 &lt;script
   type='text/javascript'
   src='/dojo-release-1.5.0/dojo/dojo.js'
@@ -120,11 +120,11 @@
           <li>
             Instead of calling the 'publish(...)' method of the 'dojo' module
             like this:
-            <pre>
+            <pre dojoType='dcodeview.DCodeView'>
 dojo.publish('my-event', ["my event data"]);
             </pre>
             Change the module from 'dojo' to 'stordje' like this:
-            <pre>
+            <pre dojoType='dcodeview.DCodeView'>
 dojo.require('stordje');
 stordje.publish('my-event', ["my event data"]);
             </pre>
@@ -135,7 +135,7 @@ stordje.publish('my-event', ["my event data"]);
           <li>
             To recall the event data, call either the 'recall(...)' or
             'recallFirst(...)' method of the stordje module:
-            <pre>
+            <pre dojoType='dcodeview.DCodeView'>
 dojo.require('stordje');
 var arrData = stordje.recall('my-event');       // Returns the stored string
                                                 // wrapped inside an array.
@@ -183,10 +183,14 @@ var strData = stordje.recallFirst('my-event');  // Returns just the stored
     <script
         type='text/javascript'
         src='/dojo-release-1.5.0/dojo/dojo.js'
-        djConfig="parseOnLoad: true, modulePaths:{'stordje':'/stordje/stordje'}">
+        djConfig="parseOnLoad: true, modulePaths:{'stordje':'/stordje/stordje', 'dcodeview':'/dcodeview/dojo_dcodeview/'}">
     </script>
     <script type='text/javascript'>
         //<!--
+        dojo.require('dcodeview.DCodeView');    // This is for displaying the
+                                                // example code in a pretty
+                                                // way.
+
         dojo.require('dijit._Templated');
         dojo.require('dijit._Widget');
 
