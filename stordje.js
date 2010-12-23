@@ -1,5 +1,6 @@
 /**
  *  StorDJE - Storage layer add-on module for the Dojo Toolkit event system
+ *  https://github.com/maratbn/stordje/
  *
  *  Copyright (c) 2010 Marat Nepomnyashy    maratbn@gmail
  *  All rights reserved.
