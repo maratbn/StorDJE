@@ -94,14 +94,18 @@
         <h3>Test StorDJE in your browser:</h3>
         <ol>
           <li>
-            Enter an arbitrary event name and some text data below, and click
-            the 'Store' button:
-            <div dojoType='StoreEventDataWidget'></div>
+            <p>
+              Enter an arbitrary event name and some text data below, and
+              click the 'Store' button:
+              <div dojoType='StoreEventDataWidget'></div>
+            </p>
           </li>
           <li>
-            Enter the same event name below as entered above, and click the
-            'Recall' button to load and display the text data just entered:
-            <div dojoType='RecallEventDataWidget'></div>
+            <p>
+              Enter the same event name below as entered above, and click the
+              'Recall' button to load and display the text data just entered:
+              <div dojoType='RecallEventDataWidget'></div>
+            </p>
           </li>
         </ol>
       </li>
@@ -109,47 +113,60 @@
         <h3>To Use the StorDJE module in your project:</h3>
         <ol>
           <li>
-            Include the path to the 'stordje' module in the 'djConfig'
-            'modulePaths' parameter by specifying the HTTP/S path to the
-            StorDJE JavaScript file without the '.js'  extension:
-            <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
+            <p>
+              Include the path to the 'stordje' module in the 'djConfig'
+              'modulePaths' parameter by specifying the HTTP/S path to the
+              StorDJE JavaScript file without the '.js'  extension:
+              <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
 &lt;script
   type='text/javascript'
   src='/dojo-release-1.5.0/dojo/dojo.js'
   djConfig="parseOnLoad: true, modulePaths:{'stordje':'/stordje/stordje'}"&gt;
 &lt;/script&gt;
-            </pre>
+              </pre>
+            </p>
           </li>
           <li>
-            Instead of calling the 'publish(...)' method of the 'dojo' module
-            like this:
-            <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
+            <p>
+              Instead of calling the 'publish(...)' method of the 'dojo'
+              module like this:
+              <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
 dojo.publish('my-event', ["my event data"]);
-            </pre>
-            Change the module from 'dojo' to 'stordje' like this:
-            <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
+              </pre>
+            </p>
+            <p>
+              Change the module from 'dojo' to 'stordje' like this:
+              <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
 dojo.require('stordje');
 stordje.publish('my-event', ["my event data"]);
-            </pre>
-            The method arguments remain exactly the same.  The method
-            'stordje.publish(...)' still calls 'dojo.publish(...)' internally
-            after saving the event data to a hash map.
+              </pre>
+            </p>
+            <p>
+              The method arguments remain exactly the same.  The method
+              'stordje.publish(...)' still calls 'dojo.publish(...)'
+              internally after saving the event data to a hash map.
+            </p>
           </li>
           <li>
-            To recall the event data, call either the 'recall(...)' or
-            'recallFirst(...)' method of the stordje module:
-            <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
+            <p>
+              To recall the event data, call either the 'recall(...)' or
+              'recallFirst(...)' method of the stordje module:
+              <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
 dojo.require('stordje');
 var arrData = stordje.recall('my-event');       // Returns the stored string
                                                 // wrapped inside an array.
 
 var strData = stordje.recallFirst('my-event');  // Returns just the stored
                                                 // string.
-            </pre>
-            These methods simply retrieve the event data from the same hash
-            map to which it was previously saved by 'stordje.publish(...)'.
-            The 'recallFirst(...)' method was added for convenience to unwrap
-            the data from the array in which it was originally published.
+              </pre>
+            </p>
+            <p>
+              These methods simply retrieve the event data from the same hash
+              map to which it was previously saved by 'stordje.publish(...)'.
+              The 'recallFirst(...)' method was added for convenience to
+              unwrap the data from the array in which it was originally
+              published.
+            </p>
           </li>
         </ol>
       </li>
