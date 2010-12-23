@@ -30,6 +30,9 @@
         .stordje_support .input--width {
             width:                          200px;
         }
+        .stordje_support .dcodeview {
+            width:                          55em;
+        }
     </style>
   </head>
   <body class='stordje_support'>
@@ -109,7 +112,7 @@
             Include the path to the 'stordje' module in the 'djConfig'
             'modulePaths' parameter by specifying the HTTP/S path to the
             StorDJE JavaScript file without the '.js'  extension:
-            <pre dojoType='dcodeview.DCodeView'>
+            <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
 &lt;script
   type='text/javascript'
   src='/dojo-release-1.5.0/dojo/dojo.js'
@@ -120,11 +123,11 @@
           <li>
             Instead of calling the 'publish(...)' method of the 'dojo' module
             like this:
-            <pre dojoType='dcodeview.DCodeView'>
+            <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
 dojo.publish('my-event', ["my event data"]);
             </pre>
             Change the module from 'dojo' to 'stordje' like this:
-            <pre dojoType='dcodeview.DCodeView'>
+            <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
 dojo.require('stordje');
 stordje.publish('my-event', ["my event data"]);
             </pre>
@@ -135,7 +138,7 @@ stordje.publish('my-event', ["my event data"]);
           <li>
             To recall the event data, call either the 'recall(...)' or
             'recallFirst(...)' method of the stordje module:
-            <pre dojoType='dcodeview.DCodeView'>
+            <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
 dojo.require('stordje');
 var arrData = stordje.recall('my-event');       // Returns the stored string
                                                 // wrapped inside an array.
