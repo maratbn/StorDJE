@@ -1,5 +1,6 @@
 /*
-StorDJE - Storage layer add-on module for the Dojo Toolkit event system version 0.3
+StorDJE - Storage layer add-on module for the Dojo Toolkit event system
+Version 0.3
 Copyright (C) 2010 Marat Nepomnyashy All Rights Reserved.
 Licensed under BSD, see: https://github.com/maratbn/StorDJE/raw/master/LICENSE
 This file is optimized for deployment, for source see: https://github.com/maratbn/StorDJE/
