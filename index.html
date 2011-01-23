@@ -171,6 +171,43 @@ var strData = stordje.recallFirst('my-event');  // Returns just the stored
           </li>
         </ol>
       </li>
+      <li>
+        <h3>To include StorDJE in the Dojo 1.5.0 or below SDK build:</h3>
+        <ol>
+          <li>
+            <p>
+              Dojo version 1.5.0 and below SDK build script has a limitation
+              on including single-file modules in the build.  To include
+              StorDJE in the build, it is necessary to overcome this
+              limitation.
+            </p>
+            <ul>
+              <li>
+                <p>
+                  Either override
+                  'dojo-release-X-src/util/buildscripts/build.js' with this
+                  <a href='dojo-release-X-src/util/buildscripts/build.js'>
+                    build.js
+                  </a>.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Or apply this <a href='build.js.patch'>build.js.patch</a>
+                  patch file to
+                  'dojo-release-X-src/util/buildscripts/build.js'.
+                </p>
+                <p>
+                  Example:
+                  <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
+$ patch dojo-release-1.5.0-src/util/buildscripts/build.js-ORIGINAL build.js.patch 
+                  </pre>
+                </p>
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </li>
     </ul>
     <div>
       Copyright (c) 2010-2011 Marat Nepomnyashy
