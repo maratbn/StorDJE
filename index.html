@@ -66,10 +66,12 @@
           <li>
             <h4>Background:</h4>
             <p>
-    The Dojo Toolkit, for which this module is intended, features a versatile
-    topic-based event publishing and subscription framework, that allows
-    widgets throughout the application to receive notifications of various
-    events and associated data.
+    The <a href='http://www.dojotoolkit.org/'>Dojo Toolkit</a>, for which
+    this module is intended, features a
+    <a href='http://dojotoolkit.org/reference-guide/dojo/index.html#events'>
+      versatile topic-based event publishing and subscription framework</a>,
+    that allows widgets throughout the application to receive notifications
+    of various events and associated data.
             </p>
             <p>
     However, as of version 1.5.0, the Dojo Toolkit lacks a utility to also
@@ -87,11 +89,12 @@
             <h4>Overview and purpose:</h4>
             <p>
     This is a storage layer add-on module for the Dojo Toolkit event system.
-    It can be 'require'd via the Dojo module loading system, and be used for
-    the retrieval of previously-published topic-based event data, making it
-    possible for application components to access event data that either could
-    not be received, or was not needed, at the time it was originally
-    published.
+    It can be 'require'd via the Dojo
+    <a href='http://dojotoolkit.org/reference-guide/dojo/index.html#package-system'>
+      module-loading package system</a>, and be used for the retrieval of
+    previously-published topic-based event data, making it possible for
+    application components to access event data that either could not be
+    received, or was not needed, at the time it was originally published.
             </p>
           </li>
         </ul>
@@ -176,9 +179,102 @@ var strData = stordje.recallFirst('my-event');  // Returns just the stored
           </li>
         </ol>
       </li>
+      <li>
+        <h3>To include StorDJE in the Dojo 1.5.0 or below SDK build:</h3>
+        <ol>
+          <li>
+            <p>
+              Review the
+              <a href='http://dojotoolkit.org/reference-guide/build/'>
+                Dojo Build System documentation</a>.
+            </p>
+          </li>
+          <li>
+            <p>
+              <a href='http://svn.dojotoolkit.org/src/branches/1.5/util/buildscripts/build.js'>
+                Dojo version 1.5.0 and below SDK build script</a> has a
+              limitation on including single-file modules in the build.  To
+              include StorDJE in the build, it is necessary to overcome this
+              limitation.
+            </p>
+            <ul>
+              <li>
+                <p>
+                  Either override
+                  'dojo-release-X-src/util/buildscripts/build.js' with this
+                  <a href='dojo-release-X-src/util/buildscripts/build.js'>
+                    build.js
+                  </a>.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Or apply this <a href='build.js.patch'>build.js.patch</a>
+                  patch file to
+                  'dojo-release-X-src/util/buildscripts/build.js'.
+                </p>
+                <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
+--- dojo-release-1.5.0-src/util/buildscripts/build.js-ORIGINAL	2010-04-28 17:01:11.000000000 -0700
++++ dojo-release-1.5.0-src/util/buildscripts/build.js	2011-01-22 23:12:19.815136749 -0800
+@@ -262,6 +262,12 @@
+ 	//directory. Also adds code guards to module resources.
+ 	var prefixSlashName = prefixName.replace(/\./g, "/");
+ 	var releasePath = kwArgs.releaseDir + "/"  + prefixSlashName;
++
++	var isModuleSingleFile = prefixPath.match(/\.js$/);
++	if (isModuleSingleFile) {
++		releasePath += '.js';
++	}
++
+ 	var copyRegExps = {
+ 		include: /./
+ 	};
+@@ -276,7 +282,15 @@
+ 	}
+ 
+ 	logger.info("Copying: " + prefixPath + " to: " + releasePath);
+-	var copiedFiles = fileUtil.copyDir(prefixPath, releasePath, copyRegExps, true);
++
++	var copiedFiles = null;
++	if (isModuleSingleFile) {
++		if (fileUtil.copyFile(prefixPath, releasePath, true)) {
++			copiedFiles = [releasePath];
++		}
++	} else {
++		copiedFiles = fileUtil.copyDir(prefixPath, releasePath, copyRegExps, true);
++	}
+ 
+ 	//If want a different selector engine, adjust that now.
+ 	//Copy the new selector js over the dojo._base.query file
+                </pre>
+                <p>
+                  Example:
+                  <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
+$ patch dojo-release-1.5.0-src/util/buildscripts/build.js-ORIGINAL build.js.patch 
+                  </pre>
+                </p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>
+              Make sure to specify a prefix for StorDJE in your
+              'build-X.profile.js':
+              <pre dojoType='dcodeview.DCodeView' class='dcodeview'>
+    prefixes: [
+        [ 'dijit', '../dijit' ],
+        [ 'dojox', '../dojox' ],
+        [ 'stordje', '../stordje/stordje-release-0.3-min.js' ],
+        [ 'your_other_module', '../your_other_module' ]
+    ]
+              </pre>
+            </p>
+          </li>
+        </ol>
+      </li>
     </ul>
     <div>
-      Copyright (c) 2010 Marat Nepomnyashy
+      Copyright (c) 2010-2011 Marat Nepomnyashy
       <br>
       The StorDJE module source code is
       <a href='http://github.com/maratbn/stordje/raw/master/LICENSE'>
