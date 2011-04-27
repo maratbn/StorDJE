@@ -220,7 +220,7 @@ var strData = stordje.recallFirst('my-event');  // Returns just the stored
         dojo.require('dijit._Templated');
         dojo.require('dijit._Widget');
 
-        dojo.declare('EventDataWidget', [dijit._Widget, dijit._Templated], {
+        dojo.declare('_EventDataWidget', [dijit._Widget, dijit._Templated], {
                 button_caption: "",
                 button_icon: "",
 
@@ -275,7 +275,7 @@ var strData = stordje.recallFirst('my-event');  // Returns just the stored
                 }
             });
 
-        dojo.declare('StoreEventDataWidget', EventDataWidget, {
+        dojo.declare('StoreEventDataWidget', _EventDataWidget, {
                 button_caption: "Store",
                 button_icon: 'ui-icon-arrowthick-1-se',
 
@@ -299,7 +299,7 @@ var strData = stordje.recallFirst('my-event');  // Returns just the stored
                 }
             });
 
-        dojo.declare('RecallEventDataWidget', EventDataWidget, {
+        dojo.declare('RecallEventDataWidget', _EventDataWidget, {
                 button_caption: "Recall",
                 button_icon: 'ui-icon-arrowthick-1-ne',
 
