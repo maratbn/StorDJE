@@ -3,7 +3,7 @@
  *  http://maratbn.com/stordje/
  *  https://github.com/maratbn/stordje/
  *
- *  Copyright (c) 2010 Marat Nepomnyashy    maratbn@gmail
+ *  Copyright (c) 2010-2011 Marat Nepomnyashy    maratbn@gmail
  *  All rights reserved.
  *
  *  Module:         stordje.js
